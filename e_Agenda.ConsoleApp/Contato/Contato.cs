@@ -35,7 +35,7 @@ namespace e_Agenda.ConsoleApp.Contato
         public bool ValidarTelefone()
         {
             string match = "^$";
-            Regex.Match("124145", "^(\\+?\\e*\\d{2}?)\\e*\\d?\\e*\\d{4}\\e*-?\\d{4}$");
+            Regex.Match("124145", "^(\\+?\\e*\\d{2}?) ((\\(\\d{2}\\))|(\\d{2}))?\\e*\\d?\\e*\\d{4}\\e*-?\\d{4}$");
             Regex regex = new Regex(match);
             return regex.IsMatch(Telefone);            
         }
