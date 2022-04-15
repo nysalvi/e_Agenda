@@ -89,6 +89,7 @@ namespace e_Agenda.ConsoleApp.Contato
                 Console.WriteLine(x.ToString());
                 Console.WriteLine();
             });
+            Console.ReadLine();
             return true;
         }
         protected Contato Obter()

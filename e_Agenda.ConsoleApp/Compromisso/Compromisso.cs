@@ -1,19 +1,21 @@
-﻿
+﻿using System;
 using e_Agenda.ConsoleApp.Compartilhado;
 
 namespace e_Agenda.ConsoleApp.Compromisso
 {
     internal class Compromisso : EntidadeBase
     {
-        public string Nome { get; set; }
-        public string Email { get; set; }
-        public string Telefone { get; set; }
+        public string Assunto { get; set; }
+        public string Local { get; set; }
+        public DateTime Data { set; get;}
+        public string _Data => Data.ToString("HH:mm");
+
         public string Empresa { get; set; }
         public string Cargo { get; set; }
 
         public Compromisso()
         {
-
+            
         }
         public override bool Validar()
         {

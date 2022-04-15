@@ -1,4 +1,6 @@
-﻿using e_Agenda.ConsoleApp.Compartilhado;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
+using e_Agenda.ConsoleApp.Compartilhado;
 
 namespace e_Agenda.ConsoleApp.Contato
 {
@@ -22,13 +24,25 @@ namespace e_Agenda.ConsoleApp.Contato
         {
             if (string.IsNullOrEmpty(Nome))
                 return false;
-            if (string.IsNullOrEmpty(Email))
+            if (Email == null || !ValidarEmail())
                 return false;
             if (string.IsNullOrEmpty(Telefone) || Telefone.Length < 9)
                 return false;
             if (string.IsNullOrEmpty(Empresa))
                 return false;
             return true;
+        }
+        public bool ValidarTelefone()
+        {
+            string match = "^$";
+            Regex.Match("124145", "^(\\+?\\d{2})(\\(\\))9?\\d{4}$");
+            Regex regex = new Regex(match);
+            return regex.IsMatch(Telefone);            
+        }
+        public bool ValidarEmail()
+        {
+            EmailAddressAttribute e = new EmailAddressAttribute();
+            return e.IsValid(Email);
         }
         public override string ToString()
         {

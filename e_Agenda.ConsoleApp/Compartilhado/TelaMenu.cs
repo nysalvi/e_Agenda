@@ -91,6 +91,16 @@ namespace e_Agenda.ConsoleApp.Compartilhado
             repositorioTarefa.Inserir(tarefa5);
             repositorioTarefa.Inserir(tarefa6);
 
+            Contato.Contato contato1 = new Contato.Contato("José", "joseE@gmail.com", "(99) 9 9399 - 4855",
+                "NDD", "RH");
+            Contato.Contato contato2 = new Contato.Contato("Paulo", "pPaulo@orkut.com", "(59) 9 6641 - 4412",
+                "NDD", "Suporte");
+            Contato.Contato contato3 = new Contato.Contato("Ricardo", "Ri_Cardo@outlook.com", 
+                "(33) 9 2251 - 3355", "NDD", "Suporte");
+
+            repositorioContato.Inserir(contato1);
+            repositorioContato.Inserir(contato2);
+            repositorioContato.Inserir(contato3);
         }
     }
 }
