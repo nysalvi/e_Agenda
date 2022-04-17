@@ -31,15 +31,18 @@ namespace e_Agenda.ConsoleApp.Compromisso
                 return false;
             if (Data.CompareTo(DateTime.Parse("01/01/1900")) == -1)
                 return false;
-            if (Contato != null & !Contato.Validar())
+            if (Contato != null && !Contato.Validar())
+                return false;
+            if (HoraTermino < HoraInicio)
                 return false;
             return true;             
         }
         public override string ToString()
         {
-            /*   return "ID " + Numero + " :\n\tNome : " + Nome + "\n\tEmail : " + Email + "\n\tTelefone : "
-                   + Telefone + "\n\tEmpresa : " + Empresa + "\n\tCargo : " + Cargo + "\n\t//////////";*/
-            return "";
+            return "ID " + Numero + " :\n\tAssunto : " + Assunto + "\n\tLocal : " + Local + "\n\tData : "
+                + Data + "\n\tHorário Inicial : " + HoraInicio + "\n\tHorário Final: " + HoraTermino 
+                + "\n\tContato : " + (Contato == null ? "Sem Contato Atrelado!!!" : Contato.Nome) 
+                + "\n\t//////////";
         }
     }
 }

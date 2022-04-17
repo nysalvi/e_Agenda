@@ -94,8 +94,46 @@ namespace e_Agenda.ConsoleApp.Compromisso
             compromissos.ForEach(x =>
             {
                 Console.WriteLine(x.ToString());
-                Console.ReadLine();
             });
+            Console.ReadLine();
+            return true;
+        }
+        public bool VisualizarRegistroFuturo()
+        {
+            MostrarTitulo("Visualizando Compromissos Futuros");
+
+            List<Compromisso> compromissos = repositorio.Filtrar(x => x.Data > DateTime.Now);
+
+            if (compromissos.Count == 0)
+            {
+                Notificador.ApresentarMensagem("Não há nenhum Compromisso disponível.", "atencao");
+                return false;
+            }
+
+            compromissos.ForEach(x =>
+            {
+                Console.WriteLine(x.ToString());
+            });
+            Console.ReadLine();
+            return true;
+        }
+        public bool VisualizarRegistroPassado()
+        {
+            MostrarTitulo("Visualizando Compromissos Passados");
+
+            List<Compromisso> compromissos = repositorio.Filtrar(x=> x.Data < DateTime.Now);
+
+            if (compromissos.Count == 0)
+            {
+                Notificador.ApresentarMensagem("Não há nenhum Compromisso disponível.", "atencao");
+                return false;
+            }
+
+            compromissos.ForEach(x =>
+            {
+                Console.WriteLine(x.ToString());
+            });
+            Console.ReadLine();
             return true;
         }
         protected Compromisso Obter()
