@@ -8,31 +8,38 @@ namespace e_Agenda.ConsoleApp.Compromisso
         public string Assunto { get; set; }
         public string Local { get; set; }
         public DateTime Data { set; get;}
-        public string _Data => Data.ToString("HH:mm");
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraTermino { get; set; }
+        public Contato.Contato Contato{ get; set; }
 
-        public string Empresa { get; set; }
-        public string Cargo { get; set; }
-
-        public Compromisso()
+        public Compromisso(string assunto, string local, DateTime data, TimeSpan horaInicio, 
+            TimeSpan horaTermino, Contato.Contato contato)
         {
-            
+            Assunto = assunto;
+            Local = local;
+            Data = data;
+            HoraInicio = horaInicio;
+            HoraTermino = horaTermino;
+            Contato = contato;
         }
         public override bool Validar()
         {
-            if (string.IsNullOrEmpty(Nome))
+            
+            if (string.IsNullOrEmpty(Assunto))
                 return false;
-            if (string.IsNullOrEmpty(Email))
+            if (string.IsNullOrEmpty(Local))
                 return false;
-            if (string.IsNullOrEmpty(Telefone) || Telefone.Length < 9)
+            if (Data.CompareTo(DateTime.Parse("01/01/1900")) == -1)
                 return false;
-            if (string.IsNullOrEmpty(Empresa))
+            if (Contato != null & !Contato.Validar())
                 return false;
-            return true;
+            return true;             
         }
         public override string ToString()
         {
-            return "ID " + Numero + " :\n\tNome : " + Nome + "\n\tEmail : " + Email + "\n\tTelefone : "
-                + Telefone + "\n\tEmpresa : " + Empresa + "\n\tCargo : " + Cargo + "\n\t//////////";
+            /*   return "ID " + Numero + " :\n\tNome : " + Nome + "\n\tEmail : " + Email + "\n\tTelefone : "
+                   + Telefone + "\n\tEmpresa : " + Empresa + "\n\tCargo : " + Cargo + "\n\t//////////";*/
+            return "";
         }
     }
 }

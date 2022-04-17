@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using e_Agenda.ConsoleApp.Contato;
 using e_Agenda.ConsoleApp.Compartilhado;
 
 namespace e_Agenda.ConsoleApp.Compromisso
@@ -7,9 +8,15 @@ namespace e_Agenda.ConsoleApp.Compromisso
     internal class TelaCompromisso : TelaBase, ITela
     {
         private RepositorioCompromisso repositorio;
-        public TelaCompromisso(RepositorioCompromisso repositorio) : base("Cadastro de Amigos")
+
+        private readonly TelaContato telaContato;
+        private readonly RepositorioContato repositorioContato;
+        public TelaCompromisso(RepositorioCompromisso repositorio, TelaContato telaContato,
+            RepositorioContato repositorioContato): base("Cadastro de Amigos")
         {
             this.repositorio = repositorio;
+            this.telaContato = telaContato;
+            this.repositorioContato = repositorioContato;
         }
 
         public void InserirRegistro()
@@ -34,7 +41,7 @@ namespace e_Agenda.ConsoleApp.Compromisso
                 Notificador.ApresentarMensagem("Nenhum Compromisso cadastrado para poder editar.", "atencao");
                 return;
             }
-            int numeroContato = ObterNumeroContato();
+            int numeroContato = ObterNumeroCompromisso();
             if (numeroContato == -1)
                 return;
 
@@ -59,7 +66,7 @@ namespace e_Agenda.ConsoleApp.Compromisso
                 return;
             }
 
-            int numeroContato = ObterNumeroContato();
+            int numeroContato = ObterNumeroCompromisso();
 
             if (numeroContato == -1)
             {
@@ -70,7 +77,7 @@ namespace e_Agenda.ConsoleApp.Compromisso
             if (!conseguiuExcluir)
                 Notificador.ApresentarMensagem("Não foi possível excluir.", "sucesso");
             else
-                Notificador.ApresentarMensagem("Amigo excluído com sucesso!", "sucesso");
+                Notificador.ApresentarMensagem("Compromisso excluído com sucesso!", "sucesso");
         }
         public bool VisualizarRegistro()
         {
@@ -93,39 +100,65 @@ namespace e_Agenda.ConsoleApp.Compromisso
         }
         protected Compromisso Obter()
         {
-            Console.Write("Digite o Nome do Contato: ");
-            string nome = Console.ReadLine();
+            Console.Write("Digite o Assunto: ");
+            string assunto = Console.ReadLine();
 
-            Console.Write("Digite o Email do Contato: ");
-            string email = Console.ReadLine();
+            Console.Write("Digite o do Local: ");
+            string local = Console.ReadLine();
 
-            Console.Write("Digite o Número do Telefone: ");
-            string telefone = Console.ReadLine();
+            Console.WriteLine("Digite a Data do Compromisso: ");
+            DateTime data = DateTime.Parse(Console.ReadLine());
 
-            Console.Write("Digite a Empresa Onde o Contato Trabalha: ");
-            string empresa = Console.ReadLine();
+            Console.WriteLine("Digite a Hora : ");
+            int hora = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Digite o Cargo da Profissão do Contato: ");
-            string cargo = Console.ReadLine();
+            Console.WriteLine("Digite os Minutos : ");
+            int minuto = Convert.ToInt32(Console.ReadLine());
 
-            return new Compromisso();
-            //return new Compromisso(nome, email, telefone, empresa, cargo);
+            TimeSpan ts = new TimeSpan(hora, minuto, 0);
+
+            Console.WriteLine("Digite a Hora Final : ");
+            int horaFinal = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Digite os Minutos Finais: ");
+            int minutoFinal = Convert.ToInt32(Console.ReadLine());
+
+            TimeSpan tsFinal = new TimeSpan(horaFinal, minutoFinal, 0);
+
+            Console.WriteLine("Digite s para Associar o Compromisso a um Contato : ");
+            string haveraContato = Console.ReadLine();
+            if (haveraContato != "s")
+                return new Compromisso(assunto, local, data, ts, tsFinal, null);
+            if (!telaContato.VisualizarRegistro())
+            {
+                Notificador.ApresentarMensagem("Nao Existem Contatos !!!\n\tCompromisso criado sem um contato " +
+                    "associado a ele" ,"atencao");
+                return new Compromisso(assunto, local, data, ts, tsFinal, null);
+            }
+            int posicao = telaContato.ObterNumeroContato();
+            if (posicao == -1)
+                return null;
+            Contato.Contato contato = repositorioContato.SelecionarRegistro(posicao);
+            return new Compromisso(assunto, local, data, ts, tsFinal, contato);
 
         }
 
-        private int ObterNumeroContato()
+        private int ObterNumeroCompromisso()
         {
-            int numeroContato = -1;
-            bool numeroContatoEncontrado;
+            int numeroCompromisso = -1;
+            bool numeroCompromissoEncontrado;
             Console.Write("Digite o número do Compromisso que deseja selecionar: ");
-            numeroContato = Convert.ToInt32(Console.ReadLine());
+            numeroCompromisso = Convert.ToInt32(Console.ReadLine());
 
-            numeroContatoEncontrado = repositorio.Registros.Find(x => x.Numero == numeroContato) != null;
+            numeroCompromissoEncontrado = repositorio.Registros.Find(x => x.Numero == numeroCompromisso) != null;
 
-            if (numeroContatoEncontrado == false)
+            if (numeroCompromissoEncontrado == false)
+            {
                 Notificador.ApresentarMensagem("Número do Compromisso não encontrado, tente novamente.",
                     "atencao");
-            return numeroContato;
+                numeroCompromisso = -1;
+            }
+            return numeroCompromisso;
         }
 
     }

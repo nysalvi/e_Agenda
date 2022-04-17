@@ -26,17 +26,20 @@ namespace e_Agenda.ConsoleApp.Contato
                 return false;
             if (Email == null || !ValidarEmail())
                 return false;
-            if (string.IsNullOrEmpty(Telefone) || Telefone.Length < 9)
+            if (ValidarTelefone())
                 return false;
             if (string.IsNullOrEmpty(Empresa))
                 return false;
             return true;
         }
         public bool ValidarTelefone()
-        {
-            string match = "^(\\+?\\e*\\d{2}?)((\\(\\d{2}\\))|(\\d{2}))?\\e*\\d?\\e*\\d{4}\\e*-?\\d{4}$";
-            Regex regex = new Regex(match);
-            return regex.IsMatch(Telefone);            
+        {//  (\+\e*)?
+            string pais = @" *(\+ *[0-9] *[0-9] *)? *";
+            string ddd = @"(([0-9] *[0-9] *)|(\( *[0-9] *[0-9] *\) *))?";
+            string numero = @"([0-9] *){5}\-?([0-9] *){4}";
+
+            Regex regex = new Regex("^" + pais + ddd + numero +"$");
+            return regex.IsMatch(Nome);
         }
         public bool ValidarEmail()
         {

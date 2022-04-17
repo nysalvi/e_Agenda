@@ -113,19 +113,22 @@ namespace e_Agenda.ConsoleApp.Contato
 
         }
 
-        private int ObterNumeroContato()
+        public int ObterNumeroContato()
         {
-            int numeroContato = -1;
+            int numeroContato;
             bool numeroContatoEncontrado;
             Console.Write("Digite o número do Contato que deseja selecionar: ");
             numeroContato = Convert.ToInt32(Console.ReadLine());
 
-            numeroContatoEncontrado = repositorio.Registros.Find(x => x.Numero == numeroContato) != null;
-
-            if (numeroContatoEncontrado == false)
+            Contato contato = repositorio.Registros.Find(x => x.Numero == numeroContato);
+            numeroContatoEncontrado = contato != null;
+            if (!numeroContatoEncontrado)
+            {
                 Notificador.ApresentarMensagem("Número do contato não encontrado, tente novamente.", 
                     "atencao");
-            return numeroContato;
+                return -1;
+            }
+            return repositorio.Registros.IndexOf(contato);
         }
     }
 }

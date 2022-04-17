@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using e_Agenda.ConsoleApp.Compartilhado;
-using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 
 namespace e_Agenda.ConsoleApp.Tarefa
 {
@@ -246,7 +244,7 @@ namespace e_Agenda.ConsoleApp.Tarefa
         }
         protected int ObterNumeroTarefa()
         {
-            int numeroTarefa = -1;
+            int numeroTarefa;
             bool numeroTarefaEncontrada;
             Console.Write("Digite o Número da Tarefa que Deseja Selecionar: ");
             numeroTarefa = Convert.ToInt32(Console.ReadLine());

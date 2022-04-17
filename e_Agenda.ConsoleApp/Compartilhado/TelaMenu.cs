@@ -14,7 +14,7 @@ namespace e_Agenda.ConsoleApp.Compartilhado
         private readonly TelaCompromisso telaCompromisso;
 
         private readonly RepositorioTarefa repositorioTarefa;
-        private readonly TelaTarefa telaTarefa;
+        private readonly TelaTarefa telaTarefa;        
 
         public TelaMenu()
         {
@@ -22,7 +22,7 @@ namespace e_Agenda.ConsoleApp.Compartilhado
             this.telaContato = new TelaContato(repositorioContato);
 
             this.repositorioCompromisso = new RepositorioCompromisso();
-            this.telaCompromisso = new TelaCompromisso(repositorioCompromisso);
+            this.telaCompromisso = new TelaCompromisso(repositorioCompromisso, telaContato, repositorioContato);
 
             this.repositorioTarefa = new RepositorioTarefa();
             this.telaTarefa = new TelaTarefa(repositorioTarefa);

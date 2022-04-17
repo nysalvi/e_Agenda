@@ -29,7 +29,7 @@ namespace e_Agenda.ConsoleApp.Compartilhado
             //registros.Remove(entidade);
             entidade.Numero = posicao;
             //registros.Add(entidade);
-            registros[posicao-1] = entidade;
+            registros[posicao] = entidade;
         }
         public bool Excluir(int posicao)
         {
