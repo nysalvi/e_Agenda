@@ -3,18 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+
 
 namespace e_Agenda.ConsoleApp.Compartilhado
 {
-    public class RepositorioBase<T> where T : EntidadeBase
+    [XmlInclude(typeof(RepositorioBase<EntidadeBase>))]
+    //[Serializable]            
+    public class RepositorioBase<T> : IXmlSerializable where T : EntidadeBase 
     {
         protected List<T> registros;
         public List<T> Registros => registros;
         protected int contador;
+        protected string file;
 
         public RepositorioBase()
         {
             registros = new List<T>();
+        }
+        public RepositorioBase(string filename)
+        {
+            registros = new List<T>();
+            file = AppDomain.CurrentDomain.BaseDirectory + "src" + filename;
         }
         public virtual string Inserir(T entidade)
         {
@@ -63,6 +75,19 @@ namespace e_Agenda.ConsoleApp.Compartilhado
                     return true;
 
             return false;
+        }
+        public XmlSchema GetSchema()
+        {
+            //throw new NotImplementedException();
+            return null;
+        }
+        public void ReadXml(XmlReader reader)
+        {
+            
+        }
+        public void WriteXml(XmlWriter writer)
+        {
+            
         }
     }
 }

@@ -92,19 +92,19 @@ namespace e_Agenda.ConsoleApp.Compartilhado
             else if (opcao == "7")
             {
                 int status = 0;
-                string tarefa = Path.GetDirectoryName("\\Tarefa.xml");
+                string tarefa = AppDomain.CurrentDomain.BaseDirectory + "e_Agenda.ConsoleApp\\src\\Tarefa.xml";
                 if (File.Exists(tarefa))
                 {
                     File.Delete(tarefa);
                 }
                 else status++;
-                string contato = Path.GetDirectoryName("\\Contato.xml");
+                string contato = AppDomain.CurrentDomain.BaseDirectory + "e_Agenda.ConsoleApp\\src\\Contato.xml";
                 if (File.Exists(contato))
                 {
                     File.Delete(contato);
                 }
                 else status++;
-                string compromisso = Path.GetDirectoryName("\\Compromisso.xml");
+                string compromisso = AppDomain.CurrentDomain.BaseDirectory + "e_Agenda.ConsoleApp\\src\\Compromisso.xml";
                 if (File.Exists(compromisso))
                 {
                     File.Delete(compromisso);
