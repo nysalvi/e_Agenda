@@ -4,8 +4,12 @@ using e_Agenda.ConsoleApp.Compartilhado;
 
 namespace e_Agenda.ConsoleApp.ModuloContato
 {
-    internal class Contato : EntidadeBase
+    public class Contato : EntidadeBase
     {
+        public Contato()
+        {
+
+        }
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Telefone { get; set; }

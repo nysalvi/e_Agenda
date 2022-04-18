@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace e_Agenda.ConsoleApp.Compartilhado
 {
-    internal class RepositorioBase<T> where T : EntidadeBase
+    public class RepositorioBase<T> where T : EntidadeBase
     {
         protected List<T> registros;
         public List<T> Registros => registros;

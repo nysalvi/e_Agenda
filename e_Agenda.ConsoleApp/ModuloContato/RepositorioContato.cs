@@ -2,7 +2,7 @@
 
 namespace e_Agenda.ConsoleApp.ModuloContato
 {
-    internal class RepositorioContato : RepositorioBase<Contato>
+    public class RepositorioContato : RepositorioBase<Contato>
     {
 
     }

@@ -4,8 +4,12 @@ using e_Agenda.ConsoleApp.Compartilhado;
 namespace e_Agenda.ConsoleApp.ModuloTarefa
 {
 
-    internal class Tarefa : EntidadeBase, IComparable<Tarefa>
+    public class Tarefa : EntidadeBase, IComparable<Tarefa>
     {
+        public Tarefa()
+        {
+
+        }
         public List<Item> itens;
         public int NumeroItem { get; set; }
         public string Titulo { get; set; }

@@ -4,8 +4,12 @@ using e_Agenda.ConsoleApp.Compartilhado;
 
 namespace e_Agenda.ConsoleApp.ModuloCompromisso
 {
-    internal class Compromisso : EntidadeBase
+    public class Compromisso : EntidadeBase
     {
+        public Compromisso()
+        {
+
+        }
         public string Assunto { get; set; }
         public string Local { get; set; }
         public DateTime Data { set; get;}

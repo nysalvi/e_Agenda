@@ -2,7 +2,7 @@
 
 namespace e_Agenda.ConsoleApp.ModuloCompromisso
 {
-    internal class RepositorioCompromisso : RepositorioBase<Compromisso>
+    public class RepositorioCompromisso : RepositorioBase<Compromisso>
     {
         
     }

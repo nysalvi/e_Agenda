@@ -4,6 +4,10 @@ namespace e_Agenda.ConsoleApp.ModuloTarefa
 {
     public class Item : EntidadeBase
     {
+        public Item()
+        {
+
+        }
         public string Descricao { get; set; }
         public bool Concluido { get; set; }
 
