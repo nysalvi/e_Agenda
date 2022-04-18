@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using e_Agenda.ConsoleApp.Compartilhado;
-namespace e_Agenda.ConsoleApp.Tarefa {
+namespace e_Agenda.ConsoleApp.ModuloTarefa
+{
 
     internal class Tarefa : EntidadeBase, IComparable<Tarefa>
     {

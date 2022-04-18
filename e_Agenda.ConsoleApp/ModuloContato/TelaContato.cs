@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using e_Agenda.ConsoleApp.Compartilhado;
 
-namespace e_Agenda.ConsoleApp.Contato
+namespace e_Agenda.ConsoleApp.ModuloContato
 {
     internal class TelaContato : TelaBase, ITela
     {

@@ -1,7 +1,8 @@
 ﻿using System;
+using e_Agenda.ConsoleApp.ModuloContato;
 using e_Agenda.ConsoleApp.Compartilhado;
 
-namespace e_Agenda.ConsoleApp.Compromisso
+namespace e_Agenda.ConsoleApp.ModuloCompromisso
 {
     internal class Compromisso : EntidadeBase
     {
@@ -10,10 +11,10 @@ namespace e_Agenda.ConsoleApp.Compromisso
         public DateTime Data { set; get;}
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraTermino { get; set; }
-        public Contato.Contato Contato{ get; set; }
+        public Contato Contato{ get; set; }
 
         public Compromisso(string assunto, string local, DateTime data, TimeSpan horaInicio, 
-            TimeSpan horaTermino, Contato.Contato contato)
+            TimeSpan horaTermino, Contato contato)
         {
             Assunto = assunto;
             Local = local;

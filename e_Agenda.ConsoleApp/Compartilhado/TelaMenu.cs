@@ -1,19 +1,21 @@
 ﻿using System;
-using e_Agenda.ConsoleApp.Contato;
-using e_Agenda.ConsoleApp.Compromisso;
-using e_Agenda.ConsoleApp.Tarefa;
+using System.IO;
+using e_Agenda.ConsoleApp.ModuloContato;
+using e_Agenda.ConsoleApp.ModuloCompromisso;
+using e_Agenda.ConsoleApp.ModuloTarefa;
+using e_Agenda.ConsoleApp.Compartilhado;
 
 namespace e_Agenda.ConsoleApp.Compartilhado
 {
     public class TelaMenu
     {
-        private readonly RepositorioContato repositorioContato;
+        private RepositorioContato repositorioContato;
         private readonly TelaContato telaContato;
 
-        private readonly RepositorioCompromisso repositorioCompromisso;
+        private RepositorioCompromisso repositorioCompromisso;
         private readonly TelaCompromisso telaCompromisso;
 
-        private readonly RepositorioTarefa repositorioTarefa;
+        private RepositorioTarefa repositorioTarefa;
         private readonly TelaTarefa telaTarefa;        
 
         public TelaMenu()
@@ -26,8 +28,7 @@ namespace e_Agenda.ConsoleApp.Compartilhado
 
             this.repositorioTarefa = new RepositorioTarefa();
             this.telaTarefa = new TelaTarefa(repositorioTarefa);
-
-            PopularAplicacao();
+            
         }
 
         public string MostrarOpcoes()
@@ -41,7 +42,10 @@ namespace e_Agenda.ConsoleApp.Compartilhado
             Console.WriteLine("Digite 1 para Gerenciar Tarefa");
             Console.WriteLine("Digite 2 para Gerenciar Contato");
             Console.WriteLine("Digite 3 para Gerenciar Compromisso");
-
+            Console.WriteLine("Digite 4 para Popular o Programa");
+            Console.WriteLine("Digite 5 para Salvar o Programa");
+            Console.WriteLine("Digite 6 para Carregar o Programa");
+            Console.WriteLine("Digite 7 para Deletar Dados");
             Console.WriteLine("Digite s para sair");
 
             string opcaoSelecionada = Console.ReadLine();
@@ -65,11 +69,54 @@ namespace e_Agenda.ConsoleApp.Compartilhado
                 tela = telaCompromisso;
 
             else if (opcao == "4")
-                tela = null;
-
+            {
+                Notificador.ApresentarMensagem("Dados Gerados Com Sucesso !!!", "sucesso");
+                PopularAplicacao();
+            }
             else if (opcao == "5")
-                tela = null;
-
+            {
+                if (repositorioTarefa.Registros.Count == 0
+                    && repositorioContato.Registros.Count == 0
+                    && repositorioCompromisso.Registros.Count == 0)
+                    Notificador.ApresentarMensagem("Nenhum Dado Para Salvar", "atencao");
+                else
+                {
+                    SalvarAplicacao();
+                    Notificador.ApresentarMensagem("Dados Salvos Com Sucesso", "sucesso");
+                }
+            }
+            else if (opcao == "6")
+            {
+                CarregarAplicacao();
+            }
+            else if (opcao == "7")
+            {
+                int status = 0;
+                string tarefa = Path.GetDirectoryName("\\Tarefa.xml");
+                if (File.Exists(tarefa))
+                {
+                    File.Delete(tarefa);
+                }
+                else status++;
+                string contato = Path.GetDirectoryName("\\Contato.xml");
+                if (File.Exists(contato))
+                {
+                    File.Delete(contato);
+                }
+                else status++;
+                string compromisso = Path.GetDirectoryName("\\Compromisso.xml");
+                if (File.Exists(compromisso))
+                {
+                    File.Delete(compromisso);
+                }
+                else status++;
+                if (status == 3)
+                    Notificador.ApresentarMensagem("Nenhum Dado Para Deletar", "atencao");
+                else
+                    Notificador.ApresentarMensagem("Dados Deletados Com Sucesso", "sucesso");
+            }
+            else if (opcao == "s")
+                tela = new TelaSair("Sair");
             return tela;
         }
         private void PopularAplicacao()
@@ -77,12 +124,12 @@ namespace e_Agenda.ConsoleApp.Compartilhado
             //var garcom = new Garcom("Julinho", "230.232.519-98");
             //repositorioGarcom.Inserir(garcom);
 
-            Tarefa.Tarefa tarefa1 = new Tarefa.Tarefa("Casa", 2, DateTime.Parse("11/09/2019"), 2);
-            Tarefa.Tarefa tarefa2 = new Tarefa.Tarefa("Mercado", 2, DateTime.Parse("09/04/2018"), 1);
-            Tarefa.Tarefa tarefa3 = new Tarefa.Tarefa("Trabalho", 3, DateTime.Parse("20/05/2015"), 3);
-            Tarefa.Tarefa tarefa4 = new Tarefa.Tarefa("Transporte", 1, DateTime.Parse("18/06/2017"), 3);
-            Tarefa.Tarefa tarefa5 = new Tarefa.Tarefa("Finanças", 3, DateTime.Parse("12/11/2016"), 2);
-            Tarefa.Tarefa tarefa6 = new Tarefa.Tarefa("Férias", 1, DateTime.Parse("14/07/2020"), 3);
+            Tarefa tarefa1 = new Tarefa("Casa", 2, DateTime.Parse("11/09/2019"), 2);
+            Tarefa tarefa2 = new Tarefa("Mercado", 2, DateTime.Parse("09/04/2018"), 1);
+            Tarefa tarefa3 = new Tarefa("Trabalho", 3, DateTime.Parse("20/05/2015"), 3);
+            Tarefa tarefa4 = new Tarefa("Transporte", 1, DateTime.Parse("18/06/2017"), 3);
+            Tarefa tarefa5 = new Tarefa("Finanças", 3, DateTime.Parse("12/11/2016"), 2);
+            Tarefa tarefa6 = new Tarefa("Férias", 1, DateTime.Parse("14/07/2020"), 3);
 
             repositorioTarefa.Inserir(tarefa1);
             repositorioTarefa.Inserir(tarefa2);
@@ -91,16 +138,46 @@ namespace e_Agenda.ConsoleApp.Compartilhado
             repositorioTarefa.Inserir(tarefa5);
             repositorioTarefa.Inserir(tarefa6);
 
-            Contato.Contato contato1 = new Contato.Contato("José", "joseE@gmail.com", "(99) 9 9399 - 4855",
+            Contato contato1 = new Contato("José", "joseE@gmail.com", "(99) 9 9399 - 4855",
                 "NDD", "RH");
-            Contato.Contato contato2 = new Contato.Contato("Paulo", "pPaulo@orkut.com", "(59) 9 6641 - 4412",
+            Contato contato2 = new Contato("Paulo", "pPaulo@orkut.com", "(59) 9 6641 - 4412",
                 "NDD", "Suporte");
-            Contato.Contato contato3 = new Contato.Contato("Ricardo", "Ri_Cardo@outlook.com", 
+            Contato contato3 = new Contato("Ricardo", "Ri_Cardo@outlook.com", 
                 "(33) 9 2251 - 3355", "NDD", "Suporte");
 
             repositorioContato.Inserir(contato1);
             repositorioContato.Inserir(contato2);
             repositorioContato.Inserir(contato3);
+        }
+        private void SalvarAplicacao()
+        {
+            RepositorioBase<Compromisso> _repositorioCompromisso = (RepositorioBase<Compromisso>)repositorioCompromisso;
+            GerenciadorArquivos.SalvarArquivo<Compromisso>("\\Compromisso.xml", _repositorioCompromisso);
+
+            RepositorioBase<Contato> _repositorioContato = (RepositorioBase<Contato>)repositorioContato;
+            GerenciadorArquivos.SalvarArquivo<Contato>("\\Contato.xml", _repositorioContato);
+
+            RepositorioBase<Tarefa> _repositorioTarefa = (RepositorioBase<Tarefa>)repositorioTarefa;
+            GerenciadorArquivos.SalvarArquivo("\\Tarefa.xml", _repositorioTarefa);
+
+        }
+        private void CarregarAplicacao()
+        {
+            RepositorioCompromisso _repositorioCompromisso = (RepositorioCompromisso)
+                GerenciadorArquivos.CarregarArquivo<Compromisso>("\\Compromisso.xml");
+            RepositorioTarefa _repositorioTarefa = (RepositorioTarefa)
+                GerenciadorArquivos.CarregarArquivo<Tarefa>("\\Tarefa.xml");
+            RepositorioContato _repositorioContato = (RepositorioContato)
+                GerenciadorArquivos.CarregarArquivo<Contato>("\\Contato.xml");
+            if (_repositorioContato == null && _repositorioCompromisso == null && _repositorioTarefa == null)
+            {
+                Notificador.ApresentarMensagem("Nenhum Dado Para Carregar", "atencao");
+                return;
+            }
+            repositorioTarefa = _repositorioTarefa;
+            repositorioContato = _repositorioContato;
+            repositorioCompromisso = _repositorioCompromisso;
+            Notificador.ApresentarMensagem("Dados Carregados Com Sucesso", "sucesso");
         }
     }
 }

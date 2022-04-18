@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Tarefa\RepositorioItem.cs" />
-    <Compile Remove="Tarefa\TelaItem.cs" />
+    <Compile Remove="ModuloTarefa\RepositorioItem.cs" />
+    <Compile Remove="ModuloTarefa\TelaItem.cs" />
   </ItemGroup>
 
 </Project>

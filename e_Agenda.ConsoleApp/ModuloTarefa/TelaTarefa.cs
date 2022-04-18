@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using e_Agenda.ConsoleApp.Compartilhado;
 
-namespace e_Agenda.ConsoleApp.Tarefa
+namespace e_Agenda.ConsoleApp.ModuloTarefa
 {
     internal class TelaTarefa : TelaBase, ITela
     {

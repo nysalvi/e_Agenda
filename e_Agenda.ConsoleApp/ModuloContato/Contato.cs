@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using e_Agenda.ConsoleApp.Compartilhado;
 
-namespace e_Agenda.ConsoleApp.Contato
+namespace e_Agenda.ConsoleApp.ModuloContato
 {
     internal class Contato : EntidadeBase
     {

@@ -1,5 +1,7 @@
 ﻿using System;
-using e_Agenda.ConsoleApp.Tarefa;
+using e_Agenda.ConsoleApp.ModuloTarefa;
+using e_Agenda.ConsoleApp.ModuloContato;
+using e_Agenda.ConsoleApp.ModuloCompromisso;
 using e_Agenda.ConsoleApp.Compartilhado;
 
 namespace e_Agenda.ConsoleApp
@@ -14,9 +16,10 @@ namespace e_Agenda.ConsoleApp
             {
                 TelaBase telaSelecionada = telaMenuPrincipal.ObterTela();
 
-                if (telaSelecionada is null)
+                if (telaSelecionada is TelaSair)
                     break;
-
+                if (telaSelecionada is null)
+                    continue;
                 string opcaoSelecionada = telaSelecionada.MostrarOpcoes();
             if (telaSelecionada is TelaTarefa)
             {

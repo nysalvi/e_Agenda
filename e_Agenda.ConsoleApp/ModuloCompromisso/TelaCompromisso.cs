@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using e_Agenda.ConsoleApp.Contato;
+using e_Agenda.ConsoleApp.ModuloContato;
 using e_Agenda.ConsoleApp.Compartilhado;
 
-namespace e_Agenda.ConsoleApp.Compromisso
+namespace e_Agenda.ConsoleApp.ModuloCompromisso
 {
     internal class TelaCompromisso : TelaBase, ITela
     {
@@ -12,7 +12,7 @@ namespace e_Agenda.ConsoleApp.Compromisso
         private readonly TelaContato telaContato;
         private readonly RepositorioContato repositorioContato;
         public TelaCompromisso(RepositorioCompromisso repositorio, TelaContato telaContato,
-            RepositorioContato repositorioContato): base("Cadastro de Amigos")
+            RepositorioContato repositorioContato): base("Cadastro de Compromissos")
         {
             this.repositorio = repositorio;
             this.telaContato = telaContato;
@@ -21,7 +21,7 @@ namespace e_Agenda.ConsoleApp.Compromisso
 
         public void InserirRegistro()
         {
-            MostrarTitulo("Inserindo Novo Contato");
+            MostrarTitulo("Inserindo Novo Compromisso");
             Compromisso compromisso = Obter();
 
             string status = repositorio.Inserir(compromisso);
@@ -176,7 +176,7 @@ namespace e_Agenda.ConsoleApp.Compromisso
             int posicao = telaContato.ObterNumeroContato();
             if (posicao == -1)
                 return null;
-            Contato.Contato contato = repositorioContato.SelecionarRegistro(posicao);
+            Contato contato = repositorioContato.SelecionarRegistro(posicao + 1);
             return new Compromisso(assunto, local, data, ts, tsFinal, contato);
 
         }
